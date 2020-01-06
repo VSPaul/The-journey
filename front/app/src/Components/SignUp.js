@@ -58,11 +58,11 @@ class SignUp extends React.Component {
         <h1 className='title'>{this.state.lastName===''? 'SignUp': 'Hello, ' + this.state.lastName}</h1>
         {/* <h1 className='dsp'> Hello, {this.state.lastName}</h1> */}
         <form className='formfields' onSubmit={this.submitForm}>
-            <input className='email' value={this.state.email} placeholder="E-mail" onChange={this.updateEmailField} type="email" name="email"/>
-            <input className='email' value={this.state.password} placeholder="Password" onChange={this.updatePasswordField} type="password" name="password"/>
-            <input className='email' value={this.state.password} placeholder="Confirm Password" onChange={this.updatePasswordField} type="password" name="password"/>
-            <input className='email' value={this.state.firstName} placeholder="First Name" onChange={this.updateFirstNameField} type="firstName" name="firstName"/>
-            <input className='email' value={this.state.lastName} placeholder="Last Name" onChange={this.updateLastNameField} type="lastName" name="lastName"/>
+            <input className='textfields' value={this.state.email} placeholder="E-mail" onChange={this.updateEmailField} type="email" name="email"/>
+            <input className='textfields' value={this.state.password} placeholder="Password" onChange={this.updatePasswordField} type="password" name="password"/>
+            <input className='textfields' value={this.state.password} placeholder="Confirm Password" onChange={this.updatePasswordField} type="password" name="password"/>
+            <input className='textfields' value={this.state.firstName} placeholder="First Name" onChange={this.updateFirstNameField} type="firstName" name="firstName"/>
+            <input className='textfields' value={this.state.lastName} placeholder="Last Name" onChange={this.updateLastNameField} type="lastName" name="lastName"/>
             <input className='btn'   type="submit" value="Submit"/>
         </form>
 
