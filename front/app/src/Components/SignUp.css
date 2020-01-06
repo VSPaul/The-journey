@@ -3,13 +3,18 @@ html {
 }
 
 body {
-    background: #F0F0F0;
+    /* background: #F0F0F0; */
+    background: url('bagan.jpg');
     margin: 0;
 }
 
 .title {
     color: rgba(124, 124, 124, 0.76);
-    padding-bottom: 10%;
+    /* padding-bottom: 10%; */
+}
+
+.formfields {
+    padding-bottom: 20px;
 }
 
 .email {
@@ -22,10 +27,38 @@ body {
     -webkit-box-shadow: 0px 0px 19px -5px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 19px -5px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 19px -5px rgba(0, 0, 0, 0.75);
+    font-weight: bold;
+}
+
+.btn {
+    height: 40px;
+    width: 400px;
+    border-radius: 20px;
+    margin-top: 30px;
+    text-align: center;
+    border: none;
+    -webkit-box-shadow: 0px 0px 19px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 19px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 19px -5px rgba(0, 0, 0, 0.75);
+    background-color: #4CAF50;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #3e8e41
+}
+
+.btn:active {
+    background-color: #3e8e41;
+    transform: translateY(4px);
 }
 
 .dsp {
-    color: rgb(75, 74, 74);
+    color: rgba(75, 74, 74, 0.747);
+    margin-bottom: 0;
+    margin-top: 30px;
 }
 
 .email:focus,
@@ -35,4 +68,8 @@ input:focus {
 
 input {
     background-color: white;
+}
+
+.formfields {
+    display: inline-grid;
 }

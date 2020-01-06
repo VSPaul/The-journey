@@ -5,22 +5,67 @@ class SignUp extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {
+            email: "mon@email.com",
+            password: "monPassw0rd",
+            firstName: "James",
+            lastName: "Bond"
+
+            // email: "",
+            // password: "",
+            // irstName: "",
+            // lastName: ""
+    };
+
         
         this.updateEmailField=this.updateEmailField.bind(this);
-      }
+        this.updatePasswordField=this.updatePasswordField.bind(this);
+        this.updateFirstNameField=this.updateFirstNameField.bind(this);
+        this.updateLastNameField=this.updateLastNameField.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+}
+    
+
 
       updateEmailField(event){
-        this.setState({value: event.target.value});
+        this.setState({email: event.target.value});
       }
+
+        updatePasswordField(event){
+          this.setState({password: event.target.value});
+        }
+
+      updateFirstNameField(event){
+        this.setState({firstName: event.target.value});
+      }
+
+      updateLastNameField(event){
+        this.setState({lastName: event.target.value});
+      }
+
+
+      submitForm(e) {
+        e.preventDefault();
+        JSON.stringify(this.state,1,1)
+        console.log(JSON.stringify(this.state,1,1))
+        }
+
+
 
   render() {
     return(
     <div>
-        <h1 className='title'>SignUp</h1>
-        <h1 className='dsp'>{this.state.value}</h1>
-        <input className='email' onChange={this.updateEmailField} placeholder="example@gmail.com" type="email" name="email"/>
-        
+        <h1 className='title'>{this.state.lastName===''? 'SignUp': 'Hello, ' + this.state.lastName}</h1>
+        {/* <h1 className='dsp'> Hello, {this.state.lastName}</h1> */}
+        <form className='formfields' onSubmit={this.submitForm}>
+            <input className='email' value={this.state.email} placeholder="E-mail" onChange={this.updateEmailField} type="email" name="email"/>
+            <input className='email' value={this.state.password} placeholder="Password" onChange={this.updatePasswordField} type="password" name="password"/>
+            <input className='email' value={this.state.password} placeholder="Confirm Password" onChange={this.updatePasswordField} type="password" name="password"/>
+            <input className='email' value={this.state.firstName} placeholder="First Name" onChange={this.updateFirstNameField} type="firstName" name="firstName"/>
+            <input className='email' value={this.state.lastName} placeholder="Last Name" onChange={this.updateLastNameField} type="lastName" name="lastName"/>
+            <input className='btn'   type="submit" value="Submit"/>
+        </form>
+
     </div>
     )
   }
