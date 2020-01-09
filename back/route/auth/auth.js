@@ -16,14 +16,19 @@ router.post('/signup', (req, res) => {
     };
     console.log(usersData)
      
-    connection.query('INSERT INTO users SET ?', usersData, (err, results) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send("Error saving user");
-          } else {
-            res.sendStatus(200);
-          }
-      });
-  });
+    connection.query('INSERT INTO users SET ?', usersData, (error, results) => {
+        // if (err) {
+        //     console.log(err);
+        //     res.status(500).send("Error saving user");
+        //   } else {
+        //     res.sendStatus(200);
+        //   }
+      console.log(error)
+        if (error)
+          res.status(500).json({ flash:  error.message });
+           else
+          res.status(200).json({ flash:  "User has been signed up!" })
+        });
+    });
 
 module.exports = router;

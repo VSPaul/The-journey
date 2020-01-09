@@ -9,12 +9,13 @@ class SignUp extends React.Component {
             email: "mon@email.com",
             password: "monPassw0rd",
             firstName: "James",
-            lastName: "Bond"
+            lastName: "Bond",
 
             // email: "",
             // password: "",
-            // irstName: "",
+            // firstName: "",
             // lastName: ""
+            flash:''
     };
 
         
@@ -25,7 +26,6 @@ class SignUp extends React.Component {
         this.submitForm = this.submitForm.bind(this);
 }
     
-
 
       updateEmailField(event){
         this.setState({email: event.target.value});
@@ -46,13 +46,27 @@ class SignUp extends React.Component {
 
       submitForm(e) {
         e.preventDefault();
-        JSON.stringify(this.state,1,1)
-        console.log(JSON.stringify(this.state,1,1))
+        // JSON.stringify(this.state,1,1)
+        // console.log(JSON.stringify(this.state,1,1))
+        fetch("/auth/signup",
+        {
+          method:  'POST',
+          headers:  new Headers({
+              'Content-Type':  'application/json'
+          }),
+          body:  JSON.stringify(this.state),
+          })
+            .then(res  =>  res.json())
+            .then(
+              res  =>  this.setState({"flash":  res.flash}),
+              err  =>  this.setState({"flash":  err.flash})
+            )
         }
 
 
 
   render() {
+    console.log("flash: " + this.state.flash)
     return(
     <div>
         <h1 className='title'>{this.state.lastName===''? 'SignUp': 'Hello, ' + this.state.lastName}</h1>
