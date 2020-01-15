@@ -91,7 +91,7 @@ class SignUp extends React.Component {
           <input className='textfields' value={this.state.password} placeholder="Confirm Password" onChange={this.updatePasswordField} type="password" name="password" />
           <input className='textfields' value={this.state.firstName} placeholder="First Name" onChange={this.updateFirstNameField} type="firstName" name="firstName" />
           <input className='textfields' value={this.state.lastName} placeholder="Last Name" onChange={this.updateLastNameField} type="lastName" name="lastName" />
-          <input className='btn' type="submit" value="Sign Up" />
+          <input className='btn' type="submit" value="Sign Up" /></Link>
           <br></br>
           <h5>If you already have an account please <Link to="/SignIn">Sign In</Link></h5>
 

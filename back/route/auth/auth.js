@@ -1,28 +1,41 @@
 var express = require('express');
 var router = express.Router();
 const connection = require('../../helpers/db');
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+
+const jwt = require('jsonwebtoken');
+
+
+
+router.post('/SignIn', function(req, res) {
+  passport.authenticate('local',(err, user, info) => {
+    if(err) return res.status(500).send(err)
+    if (!user) return res.status(400).json({message: info.message});
+    const token = jwt.sign({user}, 'your_jwt_secret');
+    return res.json({user, token});
+ })(req, res)
+});
+
 
 // router.post('/signup', function(req, res, next) {
 //     res.send('I am in POST signup');
 //   });
-  
+
+
+//Create users 
 router.post('/signup', (req, res) => {
+  let hash = bcrypt.hashSync('myPassword', 10);
     // this is a const that changes the user's inputs into something right for database
     let usersData={
         email: req.body.email,
-        password: req.body.password,
+        password: hash,
         name: req.body.firstName,
         lastname: req.body.lastName
     };
     console.log(usersData)
      
     connection.query('INSERT INTO users SET ?', usersData, (error, results) => {
-        // if (err) {
-        //     console.log(err);
-        //     res.status(500).send("Error saving user");
-        //   } else {
-        //     res.sendStatus(200);
-        //   }
       console.log(error)
         if (error)
           res.status(500).json({ flash:  error.message });
