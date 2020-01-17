@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 router.post('/signin', function(req, res) {
   passport.authenticate('local',(err, user, info) => {
     if(err) return res.status(500).send(err)
-    if (!user) return res.status(400).json({flash:  });
+    if (!user) return res.status(400).json({flash: 'Email not found!'});
     const token = jwt.sign({user}, 'your_jwt_secret');
     return res.json({user, token, flash:'Sign in succesful!'});
  })(req, res)
