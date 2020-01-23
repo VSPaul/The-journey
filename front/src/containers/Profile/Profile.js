@@ -1,7 +1,9 @@
 import React from 'react';
 import './Profile.css';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import Avatar from './mystery-avatar.jpg'
+
+import {connect} from  'react-redux'
 
 class Profile extends React.Component {
 
@@ -35,6 +37,18 @@ class Profile extends React.Component {
 	}	
 }
 	
+handleLogOut = () => {
+	console.log("here")
+	this.props.dispatch(
+		{
+			type : "CREATE_SESSION",
+			token : null,
+		}
+	)
+
+	this.props.history.replace("/signin")
+}
+
 
 	render() {
 		return (
@@ -44,7 +58,7 @@ class Profile extends React.Component {
 				</div>
 
 				<div id="bio">
-					<h2>{this.state.profile.name + ' ' + this.state.profile.lastname}</h2>
+					<h2>{this.props.user ? this.props.user.name + ' ' + this.props.user.lastname: "?"}</h2>
 				</div>
 
 				<div id="bio">
@@ -52,11 +66,14 @@ class Profile extends React.Component {
 				</div>
 
 				<div id="buttons">
-					<Link className='link' to="/SignIn"><button>Sign out</button></Link>
+					<button type='submit' onClick={this.handleLogOut}>Sign out</button>
 				</div>
 			</div>
 		)
 	}
 }
 
-export default Profile;
+function  mapStateToProps(state) {
+	return {user:  state.auth.user}
+};
+export default connect(mapStateToProps)(Profile)  

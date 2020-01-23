@@ -10,9 +10,10 @@ import { Grid, Paper } from '@material-ui/core';
 // import { Alert } from '@material-ui/lab';
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import requireAuth from './hoc/requireAuth'
-import requireNotAuth from './hoc/requireNotAuth'
+import requireAuth from './hoc/requireAuth';
+import requireNotAuth from './hoc/requireNotAuth';
 
+import PopUp from './containers/PopUp.js';
 
 
 class App extends React.Component {
@@ -39,8 +40,9 @@ class App extends React.Component {
                         <Route path='/Profile' component={requireAuth(Profile)} />
                       </Switch>
                     </BrowserRouter>
+                    <PopUp/>
                   </Grid>
-
+                  
                 </Grid>
               </Paper>
             </Grid>

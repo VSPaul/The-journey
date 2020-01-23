@@ -1,9 +1,9 @@
 import React from 'react';
 import './SignIn.css';
 import { Link } from "react-router-dom";
-import { Snackbar} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import { connect } from  'react-redux';
+// import { Snackbar} from '@material-ui/core';
+// import { Alert } from '@material-ui/lab';
+import { connect } from 'react-redux';
 
 class SignIn extends React.Component {
 
@@ -36,36 +36,40 @@ class SignIn extends React.Component {
                 }),
                 body: JSON.stringify(this.state),
             })
+            .then(res => res.json())
+            
             .then(res => {
-                if (res.ok)
-                    return res.json()
-                else
-                    // throw new Error(res.statusText);
-                    throw new Error('Email not found!');
-            })
-            .then(res => {
-                this.setState({ "flash": res.message, open: true })
+                console.log(res.flash)
+                this.setState({ "flash": res.flash, open: true })
                 this.props.dispatch(
                     {
-                        type : "CREATE_SESSION",
+                        type: "CREATE_SESSION",
                         user: res.user,
-                        token : res.token,
-                        message : res.message
+                        token: res.token,
+                        msg: res.flash
                     }
                 )
                 this.props.history.replace("/")
-    })
-            .catch(err => this.setState({ "flash": err.message, open: true }))
+            })
+            // .catch(err => this.setState({ "flash": err.flash, open: true }))
+
+            .catch (err => {
+            this.setState({ "flash": err.flash})
+            this.props.dispatch(
+                {
+                    type: "CREATE_SESSION",
+                    msg: err.flash
+                }
+            )
+        })
     }
 
-    handleClose = (reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-        this.setState({ open: false });
-    };
-
-    
+    // handleClose = (reason) => {
+    //     if (reason === "clickaway") {
+    //         return;
+    //     }
+    //     this.setState({ open: false });
+    // };
 
 
     render() {
@@ -80,11 +84,11 @@ class SignIn extends React.Component {
                     <br></br>
                     <h5>Press <Link to="/SignUp">here</Link> to register!</h5>
 
-                    <Snackbar style={{ 'top': '-27rem' }} open={this.state.open} autoHideDuration={3000} onClose={this.handleClose}>
+                    {/* <Snackbar style={{ 'top': '-27rem' }} open={this.state.open} autoHideDuration={3000} onClose={this.handleClose}>
                         <Alert onClose={this.handleClose} severity={this.state.flash === 'Sign in succesful!' ? "success" : "error"} variant="filled">
                             {this.state.flash}
                         </Alert>
-                    </Snackbar>
+                    </Snackbar> */}
 
 
                 </form>
@@ -94,11 +98,11 @@ class SignIn extends React.Component {
     }
 }
 
-function  mapStateToProps(state) {
+function mapStateToProps(state) {
     return {
-        flash:  state.auth.token,
+        flash: state.auth.token,
     }
-};  
+};
 
-export  default  connect(mapStateToProps)(SignIn);
+export default connect(mapStateToProps)(SignIn);
 

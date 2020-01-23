@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 router.post('/signin', function(req, res) {
   passport.authenticate('local',(err, user, info) => {
     if(err) return res.status(500).send(err)
-    if (!user) return res.status(400).json({flash: 'Email not found!'});
+    if (!user) return res.status(400).json({flash: info.message});
     const token = jwt.sign({user}, 'your_jwt_secret');
     return res.json({user, token, flash:'Sign in succesful!'});
  })(req, res)
@@ -25,7 +25,7 @@ router.post('/signin', function(req, res) {
 
 //Create users 
 router.post('/signup', (req, res) => {
-  let hash = bcrypt.hashSync('myPassword', 10);
+  let hash = bcrypt.hashSync(req.body.password, 10);
     // this is a const that changes the user's inputs into something right for database
     let usersData={
         email: req.body.email,
@@ -35,10 +35,10 @@ router.post('/signup', (req, res) => {
     };
     console.log(usersData)
      
-    connection.query('INSERT INTO users SET ?', usersData, (error, results) => {
+    connection.query('INSERT INTO users SET ?', usersData, (error,results, fields) => {
       console.log(error)
         if (error)
-          res.status(500).json({ flash:  error.message });
+          res.status(500).json({ flash:  "E-mail already exist!" });
            else
           res.status(200).json({ flash:  "User has been signed up!" })
         });

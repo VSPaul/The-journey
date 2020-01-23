@@ -7,11 +7,11 @@ const app = express();
 const authRouter = require('./route/auth/auth');
 const connection = require('./helpers/db');
 
+const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-
 
 
 app.use(morgan('dev'));
@@ -33,7 +33,9 @@ passport.use(new LocalStrategy(
         connection.query(`SELECT * from users WHERE email="${email}"`, (err, user) => {
 
             if (err) { return cb(err); }
-            if (!user) { return cb(null, false, { message: 'Incorrect email or password.' }) }
+            if (!user) { return cb(null, false, { message: 'Incorrect email or password!' }) }
+            let isSame = bcrypt.compareSync(password, user[0].password)
+            if (!isSame) { return cb(null, false, { message: 'Incorrect password!' }) }
             return cb(null, user[0])
         })
     }

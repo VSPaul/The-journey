@@ -1,8 +1,8 @@
 import React from 'react';
 import './SignUp.css';
-import { Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-import {Link} from 'react-router-dom';
+// import { Snackbar } from '@material-ui/core';
+// import { Alert } from '@material-ui/lab';
+import { Link } from 'react-router-dom';
 
 
 class SignUp extends React.Component {
@@ -29,7 +29,7 @@ class SignUp extends React.Component {
     this.updateFirstNameField = this.updateFirstNameField.bind(this);
     this.updateLastNameField = this.updateLastNameField.bind(this);
     this.submitForm = this.submitForm.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
   }
 
 
@@ -69,13 +69,13 @@ class SignUp extends React.Component {
       )
   }
 
-  handleClose = (reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    this.setState({ open: false });
-  };
 
+  // handleClose = (reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
+  //   this.setState({ open: false });
+  // };
 
 
   render() {
@@ -95,13 +95,11 @@ class SignUp extends React.Component {
           <br></br>
           <h5>If you already have an account please <Link to="/SignIn">Sign In</Link></h5>
 
-          <Snackbar style={{ 'top': '-27rem' }} open={this.state.open} autoHideDuration={3000} onClose={this.handleClose}>
-
+          {/* <Snackbar style={{ 'top': '-27rem' }} open={this.state.open} autoHideDuration={3000} onClose={this.handleClose}>
             <Alert onClose={this.handleClose} severity={this.state.flash === 'User has been signed up!' ? "success" : "error"} variant="filled">
               {this.state.flash}
             </Alert>
-
-          </Snackbar>
+          </Snackbar> */}
 
         </form>
 
