@@ -1,0 +1,37 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+- Paul_Vascu
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseNode@1
+  inputs:
+    version: 10.x
+- task: Npm@1
+  inputs:
+    command: 'ci'
+    workingDir: '$(Build.SourcesDirectory)/front'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '$(Build.SourcesDirectory)/front'
+    customCommand: 'run build'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/front/build'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    artifact: 'the-jurney'
+    publishLocation: 'pipeline'
